@@ -205,6 +205,27 @@
             gap: 20px;
         }
 
+        .image-credit {
+            font-size: 10px;
+            color: #888;
+            padding: 4px 8px;
+            background: rgba(255, 255, 255, 0.9);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            font-weight: 400;
+            line-height: 1.2;
+        }
+
+        .card-image {
+            position: relative;
+        }
+
+        .second-image-container {
+            position: relative;
+        }
+
         .filter-group {
             display: flex;
             align-items: center;
@@ -732,6 +753,7 @@
                 <div class="location-card" onclick="openModal(${index})">
                     ${location.image_url ? `<div class="card-image">
                         <img src="${location.image_url}" alt="${location.name}" onerror="this.parentElement.style.display='none'">
+                        ${location.image_attribution ? `<div class="image-credit">${location.image_attribution}</div>` : ''}
                     </div>` : ''}
                     <div class="card-header">
                         <div class="card-type">${location.type || 'Unknown Type'}</div>
@@ -802,8 +824,9 @@
                         ${location.second_image_url ? `
                             <div class="second-image-container" style="margin-top: 16px;">
                                 <img src="${location.second_image_url}" alt="Nearby attractions" 
-                                     style="width: 100%; max-width: 400px; height: 200px; object-fit: cover; border-radius: 4px; border: 1px solid #e8e8e8;"
-                                     onerror="this.parentElement.style.display='none'">
+                                    style="width: 100%; max-width: 400px; height: 200px; object-fit: cover; border-radius: 4px; border: 1px solid #e8e8e8;"
+                                    onerror="this.parentElement.style.display='none'">
+                                ${location.image_attribution ? `<div class="image-credit">${location.image_attribution}</div>` : ''}
                             </div>
                         ` : ''}
                     </div>
