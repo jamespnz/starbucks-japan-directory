@@ -23,13 +23,77 @@
         background-color: #fafafa;
       }
 
+      /* ===== NAVIGATION STYLES ===== */
+      .main-nav {
+        background: #ffffff;
+        border-bottom: 1px solid #e8e8e8;
+        padding: 0 20px;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+      }
+
+      .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 64px;
+      }
+
+      .nav-logo {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #2c2c2c;
+        text-decoration: none;
+        letter-spacing: -0.01em;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .nav-links a {
+        color: #666;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 14px;
+        transition: color 0.2s ease;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+      }
+
+      .nav-links a:hover {
+        color: #2c2c2c;
+        background-color: #f5f5f5;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #666;
+      }
+
+      .data-source-section {
+        display: none !important;
+      }
+
       .container {
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 20px;
       }
 
-      /* Loading State */
       .loading {
         display: flex;
         justify-content: center;
@@ -59,7 +123,6 @@
         }
       }
 
-      /* Error State */
       .error-message {
         background: #ffebee;
         color: #c62828;
@@ -70,7 +133,6 @@
         border: 1px solid #ffcdd2;
       }
 
-      /* Header */
       .header {
         background: white;
         color: #2c2c2c;
@@ -96,108 +158,6 @@
         line-height: 1.5;
       }
 
-      /* Data Source Toggle */
-      .data-source-section {
-        background: white;
-        padding: 20px 0;
-        border-bottom: 1px solid #e8e8e8;
-      }
-
-      .data-source-container {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 20px;
-      }
-
-      .data-source-toggle {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-      }
-
-      .toggle-btn {
-        background: #f5f5f5;
-        border: 1px solid #ddd;
-        padding: 8px 16px;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 14px;
-        transition: all 0.2s ease;
-      }
-
-      .toggle-btn.active {
-        background: #2c2c2c;
-        color: white;
-        border-color: #2c2c2c;
-      }
-
-      .data-info {
-        font-size: 14px;
-        color: #666;
-      }
-
-      /* CSV Upload Section */
-      .upload-section {
-        background: white;
-        padding: 32px 0;
-        border-bottom: 1px solid #e8e8e8;
-        display: none;
-      }
-
-      .upload-section.active {
-        display: block;
-      }
-
-      .upload-container {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        flex-wrap: wrap;
-      }
-
-      .upload-area {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-      }
-
-      .upload-input {
-        display: none;
-      }
-
-      .upload-btn {
-        background: #2c2c2c;
-        color: white;
-        padding: 12px 24px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 15px;
-        font-weight: 500;
-        transition: all 0.2s ease;
-        letter-spacing: 0.01em;
-      }
-
-      .upload-btn:hover {
-        background: #1a1a1a;
-      }
-
-      .upload-status {
-        color: #888;
-        font-size: 15px;
-      }
-
-      .upload-status.success {
-        color: #2d7d32;
-      }
-
-      .upload-status.error {
-        color: #d32f2f;
-      }
-
-      /* Filter Section */
       .filter-section {
         background: white;
         padding: 32px 0;
@@ -210,27 +170,6 @@
         align-items: center;
         flex-wrap: wrap;
         gap: 20px;
-      }
-
-      .image-credit {
-        font-size: 10px;
-        color: #888;
-        padding: 4px 8px;
-        background: rgba(255, 255, 255, 0.9);
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        font-weight: 400;
-        line-height: 1.2;
-      }
-
-      .card-image {
-        position: relative;
-      }
-
-      .second-image-container {
-        position: relative;
       }
 
       .filter-group {
@@ -262,27 +201,61 @@
         box-shadow: 0 0 0 2px rgba(44, 44, 44, 0.1);
       }
 
+      .upload-btn {
+        background: #4285f4;
+        color: white;
+        padding: 10px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        display: inline-block;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .upload-btn:hover {
+        background: #3367d6;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      }
+
+      .upload-input {
+        display: none;
+      }
+
+      .upload-status {
+        color: #888;
+        font-size: 13px;
+        margin-left: 12px;
+      }
+
+      .upload-status.success {
+        color: #2d7d32;
+      }
+
+      .upload-status.error {
+        color: #d32f2f;
+      }
+
       .results-count {
         color: #888;
         font-size: 15px;
         font-weight: 500;
       }
 
-      /* Main Content */
       .main-content {
         padding: 60px 0;
         background: #fafafa;
       }
 
-      /* Location Grid */
       .locations-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
         gap: 32px;
         margin-top: 32px;
       }
 
-      /* Location Card */
       .location-card {
         background: white;
         border-radius: 8px;
@@ -300,19 +273,38 @@
 
       .card-image {
         width: 100%;
-        height: 220px;
+        height: 286px;
         overflow: hidden;
+        position: relative;
       }
 
       .card-image img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: transform 0.3s ease;
+        transition: all 0.5s ease;
+        opacity: 1;
       }
 
       .location-card:hover .card-image img {
         transform: scale(1.02);
+      }
+
+      .card-image img.plan-transition {
+        opacity: 0;
+      }
+
+      .image-credit {
+        font-size: 10px;
+        color: #888;
+        padding: 4px 8px;
+        background: rgba(255, 255, 255, 0.9);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        font-weight: 400;
+        line-height: 1.2;
       }
 
       .card-header {
@@ -338,11 +330,65 @@
         letter-spacing: -0.01em;
       }
 
+      /* ===== ARCHITECTURAL PLAN HOVER STYLES ===== */
       .card-style {
-        color: #666;
+        color: #406ac4;
         font-size: 15px;
         font-style: italic;
         font-weight: 400;
+        position: relative;
+        /* cursor: url("images/tools/square.png"), pointer; */
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-block;
+        padding: 2px 4px;
+        border-radius: 3px;
+      }
+
+      .card-style:hover {
+        color: #567cce;
+        background-color: rgba(66, 133, 244, 0.1);
+        text-decoration: underline;
+        text-decoration-color: #4285f4;      
+      }
+
+      .card-style::after {
+        font-size: 12px;
+        opacity: 0.7;
+        transition: opacity 0.3s ease;
+      }
+
+      .card-style:hover::after {
+        opacity: 1;
+      }
+
+      .card-style[data-plan-image]:hover::before {
+        /* content: "Hover to view architectural plan"; */
+        position: absolute;
+        bottom: -35px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(44, 44, 44, 0.9);
+        color: rgb(232, 232, 240);
+        padding: 6px 10px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-style: normal;
+        white-space: nowrap;
+        z-index: 10;
+        opacity: 0;
+        animation: tooltipFadeIn 0.3s ease forwards;
+      }
+
+      @keyframes tooltipFadeIn {
+        from {
+          opacity: 0;
+          transform: translateX(-50%) translateY(5px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(-50%) translateY(0);
+        }
       }
 
       .card-body {
@@ -366,6 +412,31 @@
         line-height: 1.5;
       }
 
+      .address-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .map-btn {
+        background: #4285f4;
+        color: white;
+        border: none;
+        padding: 4px 8px;
+        border-radius: 3px;
+        font-size: 11px;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background 0.2s ease;
+        flex-shrink: 0;
+      }
+
+      .map-btn:hover {
+        background: #3367d6;
+        color: white;
+      }
+
       .card-footer {
         padding: 16px 24px;
         background: #fafafa;
@@ -382,7 +453,6 @@
         letter-spacing: 0.05em;
       }
 
-      /* Modal */
       .modal {
         display: none;
         position: fixed;
@@ -455,8 +525,59 @@
         line-height: 1.7;
         font-size: 15px;
       }
+      /* ===== GOOGLE MAPS ATTRACTION LINKS ===== */
+      .attractions-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
 
-      /* No Results */
+      .attractions-list li {
+        margin-bottom: 8px;
+        padding: 8px 0;
+        border-bottom: 1px solid #f5f5f5;
+      }
+
+      .attractions-list li:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+      }
+
+      .attraction-link {
+        color: #4285f4;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 4px 8px;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+        font-size: 15px;
+      }
+
+      .attraction-link:hover {
+        background-color: #f8f9ff;
+        color: #3367d6;
+        text-decoration: underline;
+      }
+
+      .map-icon {
+        font-size: 14px;
+        opacity: 0.7;
+        margin-left: 8px;
+        transition: opacity 0.2s ease;
+        flex-shrink: 0;
+      }
+
+      .attraction-link:hover .map-icon {
+        opacity: 1;
+      }
+
+      .second-image-container {
+        position: relative;
+      }
+
       .no-results {
         text-align: center;
         padding: 80px 20px;
@@ -470,8 +591,82 @@
         font-size: 1.3rem;
       }
 
-      /* Responsive */
+      .main-footer {
+        background: #2c2c2c;
+        color: white;
+        padding: 40px 0 20px 0;
+        margin-top: 60px;
+      }
+
+      .footer-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .footer-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        justify-content: center;
+        margin-bottom: 1rem;
+      }
+
+      .footer-links a {
+        color: #ccc;
+        text-decoration: none;
+        font-size: 0.875rem;
+        transition: color 0.2s ease;
+      }
+
+      .footer-links a:hover {
+        color: white;
+      }
+
+      .footer-copyright {
+        text-align: center;
+        color: #ccc;
+        font-size: 14px;
+        padding-top: 20px;
+        border-top: 1px solid #444;
+      }
+
       @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background: white;
+          flex-direction: column;
+          padding: 1rem;
+          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+          gap: 0;
+        }
+
+        .nav-links.active {
+          display: flex;
+        }
+
+        .nav-links a {
+          width: 100%;
+          padding: 0.75rem 1rem;
+          border-bottom: 1px solid #e8e8e8;
+        }
+
+        .nav-links a:last-child {
+          border-bottom: none;
+        }
+
+        .mobile-menu-btn {
+          display: block;
+        }
+
+        .nav-logo {
+          font-size: 1.1rem;
+        }
+
         .header h1 {
           font-size: 2.2rem;
         }
@@ -480,7 +675,6 @@
           font-size: 1.1rem;
         }
 
-        .data-source-container,
         .filter-container {
           flex-direction: column;
           align-items: stretch;
@@ -513,32 +707,7 @@
           padding-right: 24px;
         }
       }
-      .address-container {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        flex-wrap: wrap;
-      }
-
-      .map-btn {
-        background: #4285f4;
-        color: white;
-        border: none;
-        padding: 4px 8px;
-        border-radius: 3px;
-        font-size: 11px;
-        text-decoration: none;
-        cursor: pointer;
-        transition: background 0.2s ease;
-        flex-shrink: 0;
-      }
-
-      .map-btn:hover {
-        background: #3367d6;
-        color: white;
-      }
     </style>
-    <!-- Google tag (gtag.js) -->
     <script
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-CP3FPM70JC"
@@ -549,23 +718,36 @@
         dataLayer.push(arguments);
       }
       gtag("js", new Date());
-
       gtag("config", "G-CP3FPM70JC");
     </script>
   </head>
   <body>
-    <!-- Header -->
+    <nav class="main-nav">
+      <div class="nav-container">
+        <a href="#" class="nav-logo">Starbucks Japan Directory</a>
+
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#home">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms</a></li>
+        </ul>
+
+        <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+      </div>
+    </nav>
+
     <header class="header">
       <div class="container">
         <h1>Starbucks Japan Directory</h1>
         <p>
           Discover unique Starbucks locations throughout Japan, showcasing
-          exceptional architectural design and cultural experiences
+          exceptional architectural design and cultural attractions nearby
         </p>
       </div>
     </header>
 
-    <!-- Data Status -->
     <section class="data-source-section">
       <div class="container">
         <div
@@ -578,7 +760,6 @@
       </div>
     </section>
 
-    <!-- Filter Section -->
     <section class="filter-section">
       <div class="container">
         <div class="filter-container">
@@ -594,6 +775,16 @@
               <option value="">All Cities</option>
             </select>
           </div>
+          <div class="filter-group">
+            <label for="csvUpload" class="upload-btn">Upload CSV</label>
+            <input
+              type="file"
+              id="csvUpload"
+              class="upload-input"
+              accept=".csv"
+            />
+            <span id="uploadStatus" class="upload-status">Ready to upload</span>
+          </div>
           <div class="results-count" id="resultsCount">
             <div class="loading">Loading locations</div>
           </div>
@@ -601,7 +792,6 @@
       </div>
     </section>
 
-    <!-- Main Content -->
     <main class="main-content">
       <div class="container">
         <div class="locations-grid" id="locationsGrid">
@@ -623,28 +813,38 @@
       </div>
     </main>
 
-    <!-- Modal -->
     <div class="modal" id="locationModal">
       <div class="modal-content">
         <div class="modal-header">
           <button class="modal-close" id="modalClose">&times;</button>
           <div id="modalHeader"></div>
         </div>
-        <div class="modal-body" id="modalBody">
-          <!-- Modal content will be inserted here -->
-        </div>
+        <div class="modal-body" id="modalBody"></div>
       </div>
     </div>
 
+    <footer class="main-footer">
+      <div class="footer-container">
+        <div class="footer-links">
+          <a href="about.html">About Us</a>
+          <a href="contact.html">Contact</a>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Service</a>
+        </div>
+        <div class="footer-copyright">
+          <p>
+            &copy; 2025 Starbucks Japan Directory. Not affiliated with Starbucks
+            Corporation.
+          </p>
+          <p>All content for editorial and informational purposes.</p>
+        </div>
+      </div>
+    </footer>
+
     <script>
-      // ===== CONFIGURATION =====
       const CONFIG = {
-        // Use local file for now, will update after GitHub upload
         JSON_DATA_URL:
           "https://raw.githubusercontent.com/jamespnz/starbucks-japan-directory/refs/heads/main/data/starbucks-locations-final.json",
-        // ...
-
-        // Fallback data (your current static data)
         FALLBACK_DATA: [
           {
             id: 1,
@@ -654,27 +854,22 @@
             city: "Tokyo",
             region: "Kanto",
             architectural_style: "Traditional Japanese",
-            size: "Large (3 floors)",
             points_of_interest:
-              "Traditional wooden interiors with tatami seating area, Japanese garden views, authentic tea ceremony space",
-            nearby_attractions:
-              "Tokyo Imperial Palace, Tsukiji Outer Market, Ginza shopping district, Hibiya Park",
+              "Traditional wooden interiors with tatami seating area",
+            nearby_attractions: "Tokyo Imperial Palace, Tsukiji Outer Market",
             image_url: "",
             editorial: "",
           },
-          // Add more fallback locations as needed
         ],
       };
 
-      // ===== STATE MANAGEMENT =====
       let locations = [];
       let filteredLocations = [];
-      let currentDataSource = "json";
       let isLoading = true;
 
-      // ===== INITIALIZATION =====
       document.addEventListener("DOMContentLoaded", function () {
         initializeApp();
+        setupNavigationEventListeners();
       });
 
       async function initializeApp() {
@@ -688,25 +883,34 @@
         }
       }
 
-      // ===== DATA LOADING =====
+      function setupNavigationEventListeners() {
+        document
+          .getElementById("mobileMenuBtn")
+          .addEventListener("click", function () {
+            const navLinks = document.getElementById("navLinks");
+            navLinks.classList.toggle("active");
+          });
+
+        document.querySelectorAll(".nav-links a").forEach((link) => {
+          link.addEventListener("click", function () {
+            const navLinks = document.getElementById("navLinks");
+            navLinks.classList.remove("active");
+          });
+        });
+      }
+
       async function loadJSONData() {
         try {
-          updateDataInfo("Loading from JSON...");
-
+          console.log("Loading from JSON...");
           const response = await fetch(CONFIG.JSON_DATA_URL);
           if (!response.ok) {
             throw new Error(`HTTP ${response.status}: ${response.statusText}`);
           }
 
           const data = await response.json();
-
           if (data.locations && Array.isArray(data.locations)) {
             locations = data.locations;
-            updateDataInfo(
-              `Loaded ${locations.length} locations from JSON (Updated: ${
-                data.meta?.last_updated || "Unknown"
-              })`
-            );
+            console.log(`Loaded ${locations.length} locations from JSON`);
           } else {
             throw new Error("Invalid JSON structure");
           }
@@ -718,35 +922,8 @@
           locations = CONFIG.FALLBACK_DATA;
           filteredLocations = [...locations];
           isLoading = false;
-          updateDataInfo("Using fallback data (JSON load failed)");
+          console.log("Using fallback data");
         }
-      }
-
-      function switchDataSource(source) {
-        currentDataSource = source;
-
-        // Update toggle buttons
-        document
-          .getElementById("jsonToggle")
-          .classList.toggle("active", source === "json");
-        document
-          .getElementById("csvToggle")
-          .classList.toggle("active", source === "csv");
-
-        // Show/hide upload section
-        document
-          .getElementById("uploadSection")
-          .classList.toggle("active", source === "csv");
-
-        if (source === "json") {
-          loadJSONData().then(() => updateUI());
-        } else {
-          updateDataInfo("CSV upload mode - upload a file to load data");
-        }
-      }
-
-      function updateDataInfo(message) {
-        document.getElementById("dataInfo").textContent = message;
       }
 
       function handleDataLoadError() {
@@ -757,7 +934,152 @@
           "Error loading data";
       }
 
-      // ===== UI UPDATES =====
+      function handleCSVUpload(event) {
+        const file = event.target.files[0];
+        const statusElement = document.getElementById("uploadStatus");
+
+        if (!file) return;
+
+        statusElement.textContent = "Processing CSV...";
+        statusElement.className = "upload-status";
+
+        Papa.parse(file, {
+          header: true,
+          skipEmptyLines: true,
+          complete: function (results) {
+            if (results.errors.length > 0) {
+              console.error("CSV parsing errors:", results.errors);
+              statusElement.textContent =
+                "CSV loaded with warnings - check console";
+              statusElement.className = "upload-status";
+            }
+
+            const csvData = results.data;
+            if (csvData.length === 0) {
+              statusElement.textContent = "No locations found in CSV";
+              statusElement.className = "upload-status error";
+              return;
+            }
+
+            const newLocations = csvData.map((row, index) => {
+              if (index < 3) {
+                console.log(`Row ${index + 1} data:`);
+                console.log(`  Name: "${row.name}"`);
+                console.log(
+                  `  Architectural Style: "${row.architectural_style}"`
+                );
+                console.log(`  Image URL: "${row.image_url}"`);
+                console.log(`  Architect Plan: "${row.architect_plan}"`);
+              }
+
+              return {
+                id: parseInt(row.id) || index + 1,
+                name: cleanText(row.name || ""),
+                type: cleanText(row.type || ""),
+                editorial: cleanText(row.editorial || ""),
+                address: cleanText(row.address || ""),
+                city: cleanText(row.city || ""),
+                region: cleanText(row.region || ""),
+                architectural_style: cleanText(row.architectural_style || ""),
+                points_of_interest: cleanText(row.points_of_interest || ""),
+                walking_areas_nearby: cleanText(row.walking_areas_nearby || ""),
+                nearby_attractions: cleanText(row.nearby_attractions || ""),
+                image_url: cleanText(row.image_url || "").trim(),
+                second_image_url: cleanText(row.second_image_url || "").trim(),
+                architect_plan: cleanText(row.architect_plan || "").trim(),
+                latitude: parseFloat(row.latitude) || null,
+                longitude: parseFloat(row.longitude) || null,
+                image_attribution: cleanText(row.image_attribution || ""),
+                image_license_info: cleanText(row.image_license_info || ""),
+                second_image_attribution: cleanText(row.second_image_attribution || ""),
+                description: cleanText(row.description || ""),
+                created_at: row.created_at || "",
+                updated_at: row.updated_at || "",
+              };
+            });
+
+            const validLocations = newLocations.filter(
+              (location) => location.name && location.name.trim().length > 0
+            );
+
+            locations = validLocations;
+            filteredLocations = [...locations];
+
+            updateUI();
+
+            statusElement.textContent = `Successfully loaded ${validLocations.length} locations from CSV`;
+            statusElement.className = "upload-status success";
+            console.log(
+              `Successfully loaded ${validLocations.length} locations from CSV`
+            );
+
+            event.target.value = "";
+          },
+          error: function (error) {
+            console.error("CSV parsing error:", error);
+            statusElement.textContent = "Error parsing CSV file";
+            statusElement.className = "upload-status error";
+          },
+        });
+      }
+
+      function cleanText(text) {
+        if (!text) return "";
+
+        return text
+          .replace(/â€™/g, "'")
+          .replace(/â€œ/g, '"')
+          .replace(/â€/g, '"')
+          .replace(/â€"/g, "—")
+          .replace(/Ã¢â‚¬â„¢/g, "'")
+          .replace(/Ã¢â‚¬Å"/g, '"')
+          .replace(/Ã¢â‚¬/g, '"')
+          .replace(/\r\n/g, "\n")
+          .replace(/\r/g, "\n")
+          .trim();
+      }
+
+      // ===== ARCHITECTURAL PLAN HOVER FUNCTIONALITY =====
+      function showArchitectPlan(element) {
+        const planImage = element.getAttribute("data-plan-image");
+        const targetImgId = element.getAttribute("data-target-img");
+
+        if (planImage && targetImgId) {
+          const imgElement = document.getElementById(targetImgId);
+          if (imgElement) {
+            imgElement.classList.add("plan-transition");
+
+            setTimeout(() => {
+              imgElement.src = planImage;
+              imgElement.classList.remove("plan-transition");
+            }, 250);
+          }
+        }
+      }
+
+      function hideArchitectPlan(element) {
+        const targetImgId = element.getAttribute("data-target-img");
+
+        if (targetImgId) {
+          const imgElement = document.getElementById(targetImgId);
+          if (imgElement) {
+            const originalImage = imgElement.getAttribute("data-original");
+
+            if (
+              originalImage &&
+              imgElement.src !== imgElement.getAttribute("data-original")
+            ) {
+              imgElement.classList.add("plan-transition");
+
+              setTimeout(() => {
+                imgElement.src = originalImage;
+                imgElement.classList.remove("plan-transition");
+              }, 250);
+            }
+          }
+        }
+      }
+
       function updateUI() {
         populateFilters();
         displayLocations();
@@ -806,10 +1128,8 @@
         const errorMessage = document.getElementById("errorMessage");
         const resultsCount = document.getElementById("resultsCount");
 
-        // Hide error message when displaying locations
         errorMessage.style.display = "none";
 
-        // Update results count
         resultsCount.textContent = `Showing ${
           filteredLocations.length
         } location${filteredLocations.length !== 1 ? "s" : ""}`;
@@ -830,9 +1150,17 @@
                     ${
                       location.image_url
                         ? `<div class="card-image">
-                        <img src="${location.image_url}" alt="${
-                            location.name
-                          }" onerror="this.parentElement.style.display='none'">
+                        <img id="img-${index}" src="${
+                            location.image_url
+                          }" alt="${location.name}" data-original="${
+                            location.image_url
+                          }" ${
+                            location.architect_plan
+                              ? `data-plan="${location.architect_plan}"`
+                              : ""
+                          } onerror="console.log('Image failed to load: ${
+                            location.image_url
+                          }'); this.parentElement.style.display='none'">
                         ${
                           location.image_attribution
                             ? `<div class="image-credit">${location.image_attribution}</div>`
@@ -848,32 +1176,37 @@
                         <div class="card-name">${
                           location.name || "Unnamed Location"
                         }</div>
-                        <div class="card-style">${
-                          location.architectural_style || "Style not specified"
-                        }</div>
+                        <div class="card-style" ${
+                          location.architect_plan
+                            ? `data-plan-image="${location.architect_plan}" data-target-img="img-${index}"`
+                            : ""
+                        } onmouseover="showArchitectPlan(this)" onmouseout="hideArchitectPlan(this)">${
+              location.architectural_style || "Style not specified"
+            }</div>
                     </div>
                     <div class="card-body">
-    <div class="card-detail">
-        <strong>Address:</strong>
-        <div class="address-container" style="margin-top: 6px;">
-            <div class="card-detail-text" style="margin: 0;">${
-              location.address || "Not specified"
-            }</div>
-${
-  location.name
-    ? `<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-        location.name
-      )}" target="_blank" class="map-btn">map</a>`
-    : ""
-}        </div>
-    </div>
-    <div class="card-detail">
-        <strong>Nearby Attractions:</strong>
-        <div class="card-detail-text">${
-          location.nearby_attractions || "Not specified"
-        }</div>
-    </div>
-</div>
+                        <div class="card-detail">
+                            <strong>Address:</strong>
+                            <div class="address-container" style="margin-top: 6px;">
+                                <div class="card-detail-text" style="margin: 0;">${
+                                  location.address || "Not specified"
+                                }</div>
+                                ${
+                                  location.name
+                                    ? `<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                                        location.name
+                                      )}" target="_blank" class="map-btn">map</a>`
+                                    : ""
+                                }
+                            </div>
+                        </div>
+                        <div class="card-detail">
+                            <strong>Nearby Attractions:</strong>
+                            <div class="card-detail-text">${
+                              location.nearby_attractions || "Not specified"
+                            }</div>
+                        </div>
+                    </div>
                     <div class="card-footer">
                         <span class="view-details-btn">View Full Details</span>
                     </div>
@@ -883,7 +1216,6 @@ ${
           .join("");
       }
 
-      // ===== FILTERING =====
       function filterLocations() {
         const typeFilter = document.getElementById("typeFilter").value;
         const cityFilter = document.getElementById("cityFilter").value;
@@ -897,7 +1229,6 @@ ${
         displayLocations();
       }
 
-      // ===== MODAL FUNCTIONALITY =====
       function openModal(index) {
         const location = filteredLocations[index];
         const modal = document.getElementById("locationModal");
@@ -926,18 +1257,20 @@ ${
                     : ""
                 }
                 <div class="modal-detail">
-    <h4>Address</h4>
-    <div class="address-container">
-        <p style="margin: 0;">${location.address || "Address not available"}</p>
-        ${
-          location.name
-            ? `<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                location.name
-              )}" target="_blank" class="map-btn">map</a>`
-            : ""
-        }
-    </div>
-</div>
+                    <h4>Address</h4>
+                    <div class="address-container">
+                        <p style="margin: 0;">${
+                          location.address || "Address not available"
+                        }</p>
+                        ${
+                          location.name
+                            ? `<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                                location.name
+                              )}" target="_blank" class="map-btn">map</a>`
+                            : ""
+                        }
+                    </div>
+                </div>
                 ${
                   location.points_of_interest
                     ? `
@@ -949,39 +1282,65 @@ ${
                     : ""
                 }
                 <div class="modal-detail">
-                    <h4>Nearby Attractions</h4>
-                    <div class="nearby-attractions-content">
-                        <p>${location.nearby_attractions || "Not specified"}</p>
-                        ${
-                          location.second_image_url
-                            ? `
-                            <div class="second-image-container" style="margin-top: 16px;">
-                                <img src="${
-                                  location.second_image_url
-                                }" alt="Nearby attractions" 
-                                    style="width: 100%; max-width: 400px; height: 200px; object-fit: cover; border-radius: 4px; border: 1px solid #e8e8e8;"
-                                    onerror="this.parentElement.style.display='none'">
-                                ${
-                                  location.image_attribution
-                                    ? `<div class="image-credit">${location.image_attribution}</div>`
-                                    : ""
-                                }
-                            </div>
-                        `
-                            : ""
-                        }
-                    </div>
-                </div>
+    <h4>Nearby Attractions</h4>
+    <div class="nearby-attractions-content">
+        ${
+          location.nearby_attractions
+            ? `
+            <ul class="attractions-list">
+                ${location.nearby_attractions
+                  .split(",")
+                  .map((attraction) => {
+                    const trimmedAttraction = attraction.trim();
+                    const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                      trimmedAttraction
+                    )}`;
+                    return `<li><a href="${mapsUrl}" target="_blank" class="attraction-link">${trimmedAttraction}<span class="map-icon">🗺️</span></a></li>`;
+                  })
+                  .join("")}
+            </ul>
+        `
+            : "<p>Not specified</p>"
+        }
+        ${
+          location.second_image_url
+            ? `
+            <div class="second-image-container" style="margin-top: 16px;">
+                <img src="${location.second_image_url}" alt="Nearby attractions" 
+                    style="width: 100%; max-width: 400px; height: 200px; object-fit: cover; border-radius: 4px; border: 1px solid #e8e8e8;"
+                    onerror="this.parentElement.style.display='none'">
                 ${
-                  location.walking_areas_nearby
-                    ? `
-                    <div class="modal-detail">
-                        <h4>Walking Areas</h4>
-                        <p>${location.walking_areas_nearby}</p>
-                    </div>
-                `
+                  location.second_image_attribution
+                    ? `<div class="image-credit">${location.second_image_attribution}</div>`
                     : ""
                 }
+            </div>
+        `
+            : ""
+        }
+    </div>
+</div>
+                ${
+  location.walking_areas_nearby
+    ? `
+    <div class="modal-detail">
+        <h4>Walking Areas</h4>
+        <ul class="attractions-list">
+            ${location.walking_areas_nearby
+              .split(",")
+              .map((area) => {
+                const trimmedArea = area.trim();
+                const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                  trimmedArea
+                )}`;
+                return `<li><a href="${mapsUrl}" target="_blank" class="attraction-link">${trimmedArea}<span class="map-icon">🗺️</span></a></li>`;
+              })
+              .join("")}
+        </ul>
+    </div>
+`
+    : ""
+}
             `;
 
         modal.classList.add("active");
@@ -992,98 +1351,7 @@ ${
         modal.classList.remove("active");
       }
 
-      // ===== CSV UPLOAD FUNCTIONALITY =====
-      function handleCSVUpload(event) {
-        const file = event.target.files[0];
-        const statusElement = document.getElementById("uploadStatus");
-
-        if (!file) return;
-
-        statusElement.textContent = "Processing CSV...";
-        statusElement.className = "upload-status";
-
-        Papa.parse(file, {
-          header: true,
-          skipEmptyLines: true,
-          complete: function (results) {
-            if (results.errors.length > 0) {
-              statusElement.textContent = "Please check your CSV format";
-              statusElement.className = "upload-status error";
-              return;
-            }
-
-            const csvData = results.data;
-            if (csvData.length === 0) {
-              statusElement.textContent = "No locations found in CSV";
-              statusElement.className = "upload-status error";
-              return;
-            }
-
-            // Convert CSV data to location objects
-            const newLocations = csvData.map((row, index) => ({
-              id: parseInt(row.id) || index + 1,
-              name: cleanText(row.name || ""),
-              type: cleanText(row.type || ""),
-              address: cleanText(row.address || ""),
-              city: cleanText(row.city || ""),
-              region: cleanText(row.region || ""),
-              architectural_style: cleanText(row.architectural_style || ""),
-              size: cleanText(row.size || row.Column1 || ""),
-              points_of_interest: cleanText(row.points_of_interest || ""),
-              walking_areas_nearby: cleanText(row.walking_areas_nearby || ""),
-              nearby_attractions: cleanText(row.nearby_attractions || ""),
-              editorial: cleanText(row.editorial || ""),
-              image_url: cleanText(row.image_url || ""),
-              second_image_url: cleanText(row.second_image_url || ""),
-              third_image_url: cleanText(row.third_image_url || ""),
-              latitude: parseFloat(row.latitude) || null,
-              longitude: parseFloat(row.longitude) || null,
-              image_attribution: cleanText(row.image_attribution || ""),
-              image_license_info: cleanText(row.image_license_info || ""),
-            }));
-
-            // Replace current locations with CSV data
-            locations = newLocations;
-            filteredLocations = [...locations];
-
-            // Update the display
-            updateUI();
-
-            // Show success message
-            statusElement.textContent = `Loaded ${newLocations.length} locations from CSV`;
-            statusElement.className = "upload-status success";
-            updateDataInfo(`Using CSV data (${newLocations.length} locations)`);
-
-            // Reset file input
-            event.target.value = "";
-          },
-          error: function (error) {
-            statusElement.textContent = "Please check your CSV format";
-            statusElement.className = "upload-status error";
-          },
-        });
-      }
-
-      // Helper function to clean text and fix encoding issues
-      function cleanText(text) {
-        if (!text) return "";
-
-        return text
-          .replace(/â€™/g, "'")
-          .replace(/â€œ/g, '"')
-          .replace(/â€/g, '"')
-          .replace(/â€"/g, "—")
-          .replace(/Ã¢â‚¬â„¢/g, "'")
-          .replace(/Ã¢â‚¬Å"/g, '"')
-          .replace(/Ã¢â‚¬/g, '"')
-          .replace(/\r\n/g, "\n")
-          .replace(/\r/g, "\n")
-          .trim();
-      }
-
-      // ===== EVENT LISTENERS =====
       function setupEventListeners() {
-        // Filter changes
         document
           .getElementById("typeFilter")
           .addEventListener("change", filterLocations);
@@ -1091,15 +1359,14 @@ ${
           .getElementById("cityFilter")
           .addEventListener("change", filterLocations);
 
-        // CSV upload (removed from UI)
-        //document.getElementById('csvUpload').addEventListener('change', handleCSVUpload);
+        document
+          .getElementById("csvUpload")
+          .addEventListener("change", handleCSVUpload);
 
-        // Modal close
         document
           .getElementById("modalClose")
           .addEventListener("click", closeModal);
 
-        // Close modal when clicking outside
         document
           .getElementById("locationModal")
           .addEventListener("click", function (e) {
@@ -1108,7 +1375,6 @@ ${
             }
           });
 
-        // Close modal with Escape key
         document.addEventListener("keydown", function (e) {
           if (e.key === "Escape") {
             closeModal();
