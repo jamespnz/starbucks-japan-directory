@@ -201,8 +201,6 @@
         box-shadow: 0 0 0 2px rgba(44, 44, 44, 0.1);
       }
 
-         
-
       .results-count {
         color: #888;
         font-size: 15px;
@@ -834,7 +832,10 @@
           updateUI();
         } catch (error) {
           console.error("Failed to initialize app:", error);
-          handleDataLoadError();
+          if (locations.length === 0) {
+            // Only show error if no data loaded
+            handleDataLoadError();
+          }
         }
       }
 
