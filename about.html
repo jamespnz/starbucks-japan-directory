@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us - Starbucks Japan Directory</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Noto Sans JP", sans-serif;
+        line-height: 1.6;
+        color: #2c2c2c;
+        background-color: #fafafa;
+      }
+
+      /* ===== NAVIGATION STYLES ===== */
+      .main-nav {
+        background: #ffffff;
+        border-bottom: 1px solid #e8e8e8;
+        padding: 0 20px;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+      }
+
+      .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 64px;
+      }
+
+      .nav-logo {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #2c2c2c;
+        text-decoration: none;
+        letter-spacing: -0.01em;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .nav-links a {
+        color: #666;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 14px;
+        transition: color 0.2s ease;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+      }
+
+      .nav-links a:hover {
+        color: #2c2c2c;
+        background-color: #f5f5f5;
+      }
+
+      .nav-links a.active {
+        color: #2c2c2c;
+        background-color: #f0f0f0;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #666;
+      }
+
+      /* ===== MAIN CONTENT STYLES ===== */
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .page-header {
+        background: white;
+        color: #2c2c2c;
+        padding: 80px 0 60px 0;
+        text-align: center;
+        border-bottom: 1px solid #e8e8e8;
+      }
+
+      .page-header h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        letter-spacing: -0.02em;
+        color: #1a1a1a;
+      }
+
+      .page-header p {
+        font-size: 1.1rem;
+        max-width: 600px;
+        margin: 0 auto;
+        color: #666;
+        font-weight: 400;
+        line-height: 1.5;
+      }
+
+      .main-content {
+        padding: 60px 0;
+        background: #fafafa;
+      }
+
+      .content-section {
+        background: white;
+        border-radius: 8px;
+        border: 1px solid #e8e8e8;
+        padding: 40px;
+        margin-bottom: 32px;
+      }
+
+      .content-section h2 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 24px;
+        letter-spacing: -0.01em;
+      }
+
+      .content-section h3 {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #2c2c2c;
+        margin-bottom: 16px;
+        margin-top: 32px;
+      }
+
+      .content-section p {
+        color: #2c2c2c;
+        line-height: 1.7;
+        font-size: 15px;
+        margin-bottom: 16px;
+      }
+
+      .content-section ul {
+        color: #2c2c2c;
+        line-height: 1.7;
+        font-size: 15px;
+        margin-bottom: 16px;
+        padding-left: 20px;
+      }
+
+      .content-section li {
+        margin-bottom: 8px;
+      }
+
+      .highlight-box {
+        background: #f8f9fa;
+        border-left: 4px solid #2c2c2c;
+        padding: 24px;
+        margin: 24px 0;
+        border-radius: 4px;
+      }
+
+      .highlight-box p {
+        margin-bottom: 0;
+        font-style: italic;
+        color: #1a1a1a;
+      }
+
+      /* Footer */
+      .main-footer {
+        background: #2c2c2c;
+        color: white;
+        padding: 40px 0 20px 0;
+        margin-top: 60px;
+      }
+
+      .footer-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .footer-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        justify-content: center;
+        margin-bottom: 1rem;
+      }
+
+      .footer-links a {
+        color: #ccc;
+        text-decoration: none;
+        font-size: 0.875rem;
+        transition: color 0.2s ease;
+      }
+
+      .footer-links a:hover {
+        color: white;
+      }
+
+      .footer-copyright {
+        text-align: center;
+        color: #ccc;
+        font-size: 14px;
+        padding-top: 20px;
+        border-top: 1px solid #444;
+      }
+
+      /* Mobile Navigation */
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background: white;
+          flex-direction: column;
+          padding: 1rem;
+          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+          gap: 0;
+        }
+
+        .nav-links.active {
+          display: flex;
+        }
+
+        .nav-links a {
+          width: 100%;
+          padding: 0.75rem 1rem;
+          border-bottom: 1px solid #e8e8e8;
+        }
+
+        .nav-links a:last-child {
+          border-bottom: none;
+        }
+
+        .mobile-menu-btn {
+          display: block;
+        }
+
+        .nav-logo {
+          font-size: 1.1rem;
+        }
+
+        .page-header h1 {
+          font-size: 2rem;
+        }
+
+        .page-header p {
+          font-size: 1rem;
+        }
+
+        .content-section {
+          padding: 24px;
+          margin-bottom: 24px;
+        }
+
+        .content-section h2 {
+          font-size: 1.5rem;
+        }
+
+        .content-section h3 {
+          font-size: 1.2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation Header -->
+    <nav class="main-nav">
+      <div class="nav-container">
+        <a href="index.html" class="nav-logo">Starbucks Japan Directory</a>
+        
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html" class="active">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms</a></li>
+        </ul>
+        
+        <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+      </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+      <div class="container">
+        <h1>About Japan Starbucks Design Directory</h1>
+        <p>Your guide to the most architecturally fascinating and culturally immersive Starbucks locations across Japan</p>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="container">
+        
+        <!-- Mission Section -->
+        <section class="content-section">
+          <h2>Our Mission</h2>
+          <p>We curate and showcase Starbucks locations that represent the intersection of global coffee culture with Japan's rich architectural heritage and innovative design philosophy. Each featured location tells a unique story of place, culture, and design.</p>
+          
+          <div class="highlight-box">
+            <p>Every location in our directory is personally researched and selected for its distinctive character, architectural significance, and cultural context.</p>
+          </div>
+        </section>
+
+        <!-- What Makes Us Different -->
+        <section class="content-section">
+          <h2>What Makes Us Different</h2>
+          
+          <h3>Architectural Focus</h3>
+          <p>We highlight locations housed in historic buildings, featuring unique design elements, or showcasing innovative architecture. Our focus goes beyond just coffee - we celebrate spaces where design and culture converge.</p>
+
+          <h3>Cultural Context</h3>
+          <p>Each entry provides historical and cultural background about the location and surrounding area. We believe understanding the context makes each visit more meaningful and enriching.</p>
+
+          <h3>Travel-Focused</h3>
+          <p>Perfect for design enthusiasts, architecture lovers, and travelers seeking unique experiences in Japan. Our directory serves as a cultural bridge for visitors wanting to understand Japanese design philosophy through familiar spaces.</p>
+
+          <h3>Carefully Curated</h3>
+          <p>Every location is personally researched and selected for its distinctive character and design significance. We prioritize quality over quantity, featuring only the most remarkable examples of adaptive reuse and cultural integration.</p>
+        </section>
+
+        <!-- Our Approach -->
+        <section class="content-section">
+          <h2>Our Approach</h2>
+          <p>This directory serves design professionals, architecture students, cultural travelers, and coffee enthusiasts who appreciate spaces where global brands thoughtfully integrate with local culture and heritage.</p>
+          
+          <p>We focus on locations that demonstrate:</p>
+          <ul>
+            <li>Exceptional architectural design or historical significance</li>
+            <li>Thoughtful integration with Japanese cultural elements</li>
+            <li>Unique interior design that reflects local character</li>
+            <li>Interesting surrounding neighborhoods worth exploring</li>
+            <li>Stories that connect global coffee culture with Japanese tradition</li>
+          </ul>
+        </section>
+
+        <!-- About the Curator -->
+        <section class="content-section">
+          <h2>About the Curator</h2>
+          <p>As an architecture enthusiast and Japan travel specialist, I created this directory to share the most remarkable examples of adaptive reuse and cultural integration in commercial space design. My passion for Japanese design culture and years of exploring unique spaces across Japan drives this ongoing project.</p>
+          
+          <p>Through careful research and personal visits, I aim to highlight not just beautiful spaces, but the stories and cultural significance behind them. Each location represents a moment where global commerce meets local tradition, creating something entirely new and uniquely Japanese.</p>
+        </section>
+
+        <!-- Editorial Standards -->
+        <section class="content-section">
+          <h2>Editorial Standards</h2>
+          <p>We maintain high standards for accuracy and authenticity:</p>
+          <ul>
+            <li>All locations are personally visited and documented</li>
+            <li>Historical and architectural information is researched from authoritative sources</li>
+            <li>Images are properly attributed and used with appropriate permissions</li>
+            <li>Content is regularly updated to ensure accuracy</li>
+            <li>We respect both intellectual property and cultural sensitivity</li>
+          </ul>
+
+          <p>Our goal is to provide reliable, insightful information that enhances your understanding and appreciation of these unique spaces.</p>
+        </section>
+
+        <!-- Contact Info -->
+        <section class="content-section">
+          <h2>Get In Touch</h2>
+          <p>Questions about featured locations or suggestions for new additions? We'd love to hear from you!</p>
+          <p>Visit our <a href="contact.html" style="color: #2c2c2c; font-weight: 600;">Contact page</a> to get in touch with suggestions, corrections, or collaboration opportunities.</p>
+        </section>
+
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+      <div class="footer-container">
+        <div class="footer-links">
+          <a href="about.html">About Us</a>
+          <a href="contact.html">Contact</a>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Service</a>
+        </div>
+        <div class="footer-copyright">
+          <p>&copy; 2025 Starbucks Japan Directory. Not affiliated with Starbucks Corporation.</p>
+          <p>All content for editorial and informational purposes.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Mobile menu toggle
+      document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+        const navLinks = document.getElementById('navLinks');
+        navLinks.classList.toggle('active');
+      });
+
+      // Close mobile menu when clicking on a link
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', function() {
+          const navLinks = document.getElementById('navLinks');
+          navLinks.classList.remove('active');
+        });
+      });
+    </script>
+  </body>
+</html>
