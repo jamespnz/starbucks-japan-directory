@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Starbucks Japan Directory</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Noto Sans JP", sans-serif;
+        line-height: 1.6;
+        color: #2c2c2c;
+        background-color: #fafafa;
+      }
+
+      /* ===== NAVIGATION STYLES ===== */
+      .main-nav {
+        background: #ffffff;
+        border-bottom: 1px solid #e8e8e8;
+        padding: 0 20px;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+      }
+
+      .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 64px;
+      }
+
+      .nav-logo {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #2c2c2c;
+        text-decoration: none;
+        letter-spacing: -0.01em;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .nav-links a {
+        color: #666;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 14px;
+        transition: color 0.2s ease;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+      }
+
+      .nav-links a:hover {
+        color: #2c2c2c;
+        background-color: #f5f5f5;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #666;
+      }
+
+      .data-source-section {
+        display: none !important;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .loading {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 200px;
+        color: #666;
+        font-size: 16px;
+      }
+
+      .loading::after {
+        content: "";
+        width: 20px;
+        height: 20px;
+        border: 2px solid #ddd;
+        border-top: 2px solid #2c2c2c;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-left: 10px;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .error-message {
+        background: #ffebee;
+        color: #c62828;
+        padding: 20px;
+        border-radius: 4px;
+        margin: 20px 0;
+        text-align: center;
+        border: 1px solid #ffcdd2;
+      }
+
+      .header {
+        background: white;
+        color: #2c2c2c;
+        padding: 80px 0 60px 0;
+        text-align: center;
+        border-bottom: 1px solid #e8e8e8;
+      }
+
+      .header h1 {
+        font-size: 2.8rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        letter-spacing: -0.02em;
+        color: #1a1a1a;
+      }
+
+      .header p {
+        font-size: 1.2rem;
+        max-width: 600px;
+        margin: 0 auto;
+        color: #666;
+        font-weight: 400;
+        line-height: 1.5;
+      }
+
+      .filter-section {
+        background: white;
+        padding: 32px 0;
+        border-bottom: 1px solid #e8e8e8;
+      }
+
+      .filter-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      .filter-group {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .filter-group label {
+        font-weight: 600;
+        color: #2c2c2c;
+        font-size: 15px;
+      }
+
+      .filter-select {
+        padding: 10px 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 15px;
+        background: white;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        color: #2c2c2c;
+      }
+
+      .filter-select:focus {
+        outline: none;
+        border-color: #2c2c2c;
+        box-shadow: 0 0 0 2px rgba(44, 44, 44, 0.1);
+      }
+
+      .results-count {
+        color: #888;
+        font-size: 15px;
+        font-weight: 500;
+      }
+
+      .main-content {
+        padding: 60px 0;
+        background: #fafafa;
+      }
+
+      .locations-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+        gap: 32px;
+        margin-top: 32px;
+      }
+
+      .location-card {
+        background: white;
+        border-radius: 8px;
+        border: 1px solid #e8e8e8;
+        overflow: hidden;
+        transition: all 0.2s ease;
+        cursor: pointer;
+      }
+
+      .location-card:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        border-color: #ddd;
+      }
+
+      .card-image {
+        width: 100%;
+        height: 286px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: all 0.5s ease;
+        opacity: 1;
+      }
+
+      .location-card:hover .card-image img {
+        transform: scale(1.02);
+      }
+
+      .card-image img.plan-transition {
+        opacity: 0;
+      }
+
+      .image-credit {
+        font-size: 10px;
+        color: #888;
+        padding: 4px 8px;
+        background: rgba(255, 255, 255, 0.9);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        font-weight: 400;
+        line-height: 1.2;
+      }
+
+      .card-header {
+        padding: 24px 24px 16px 24px;
+      }
+
+      .card-type {
+        display: inline-block;
+        color: #888;
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 8px;
+      }
+
+      .card-name {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 6px;
+        line-height: 1.3;
+        letter-spacing: -0.01em;
+      }
+
+      /* ===== ARCHITECTURAL PLAN HOVER STYLES ===== */
+      .card-style {
+        color: #406ac4;
+        font-size: 15px;
+        font-style: italic;
+        font-weight: 400;
+        position: relative;
+        /* cursor: url("images/tools/square.png"), pointer; */
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-block;
+        padding: 2px 4px;
+        border-radius: 3px;
+      }
+
+      .card-style:hover {
+        color: #567cce;
+        background-color: rgba(66, 133, 244, 0.1);
+        text-decoration: underline;
+        text-decoration-color: #4285f4;
+      }
+
+      .card-style::after {
+        font-size: 12px;
+        opacity: 0.7;
+        transition: opacity 0.3s ease;
+      }
+
+      .card-style:hover::after {
+        opacity: 1;
+      }
+
+      .card-style[data-plan-image]:hover::before {
+        /* content: "Hover to view architectural plan"; */
+        position: absolute;
+        bottom: -35px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(44, 44, 44, 0.9);
+        color: rgb(232, 232, 240);
+        padding: 6px 10px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-style: normal;
+        white-space: nowrap;
+        z-index: 10;
+        opacity: 0;
+        animation: tooltipFadeIn 0.3s ease forwards;
+      }
+
+      @keyframes tooltipFadeIn {
+        from {
+          opacity: 0;
+          transform: translateX(-50%) translateY(5px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(-50%) translateY(0);
+        }
+      }
+
+      .card-body {
+        padding: 0 24px 24px 24px;
+      }
+
+      .card-detail {
+        margin-bottom: 16px;
+      }
+
+      .card-detail strong {
+        color: #2c2c2c;
+        font-weight: 600;
+        font-size: 14px;
+      }
+
+      .card-detail-text {
+        color: #666;
+        font-size: 15px;
+        margin-top: 6px;
+        line-height: 1.5;
+      }
+
+      .address-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .map-btn {
+        background: #4285f4;
+        color: white;
+        border: none;
+        padding: 4px 8px;
+        border-radius: 3px;
+        font-size: 11px;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background 0.2s ease;
+        flex-shrink: 0;
+      }
+
+      .map-btn:hover {
+        background: #3367d6;
+        color: white;
+      }
+
+      .card-footer {
+        padding: 16px 24px;
+        background: #fafafa;
+        text-align: center;
+        border-top: 1px solid #f0f0f0;
+      }
+
+      .view-details-btn {
+        color: #2c2c2c;
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 1000;
+        padding: 20px;
+      }
+
+      .modal.active {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .modal-content {
+        background: white;
+        border-radius: 8px;
+        max-width: 720px;
+        width: 100%;
+        max-height: 85vh;
+        overflow-y: auto;
+        position: relative;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+      }
+
+      .modal-header {
+        padding: 32px 32px 24px 32px;
+        border-bottom: 1px solid #e8e8e8;
+      }
+
+      .modal-close {
+        position: absolute;
+        top: 20px;
+        right: 24px;
+        background: none;
+        border: none;
+        font-size: 28px;
+        cursor: pointer;
+        color: #888;
+        transition: color 0.2s ease;
+      }
+
+      .modal-close:hover {
+        color: #2c2c2c;
+      }
+
+      .modal-body {
+        padding: 32px;
+      }
+
+      .modal-detail {
+        margin-bottom: 28px;
+      }
+
+      .modal-detail h4 {
+        color: #1a1a1a;
+        font-weight: 700;
+        margin-bottom: 12px;
+        font-size: 16px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .modal-detail p {
+        color: #2c2c2c;
+        line-height: 1.7;
+        font-size: 15px;
+      }
+      /* ===== GOOGLE MAPS ATTRACTION LINKS ===== */
+      .attractions-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .attractions-list li {
+        margin-bottom: 8px;
+        padding: 8px 0;
+        border-bottom: 1px solid #f5f5f5;
+      }
+
+      .attractions-list li:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+      }
+
+      .attraction-link {
+        color: #4285f4;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 4px 8px;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+        font-size: 15px;
+      }
+
+      .attraction-link:hover {
+        background-color: #f8f9ff;
+        color: #3367d6;
+        text-decoration: underline;
+      }
+
+      .map-icon {
+        font-size: 14px;
+        opacity: 0.7;
+        margin-left: 8px;
+        transition: opacity 0.2s ease;
+        flex-shrink: 0;
+      }
+
+      .attraction-link:hover .map-icon {
+        opacity: 1;
+      }
+
+      .second-image-container {
+        position: relative;
+      }
+
+      .no-results {
+        text-align: center;
+        padding: 80px 20px;
+        color: #888;
+      }
+
+      .no-results h3 {
+        margin-bottom: 16px;
+        color: #2c2c2c;
+        font-weight: 600;
+        font-size: 1.3rem;
+      }
+
+      .main-footer {
+        background: #2c2c2c;
+        color: white;
+        padding: 40px 0 20px 0;
+        margin-top: 60px;
+      }
+
+      .footer-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .footer-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        justify-content: center;
+        margin-bottom: 1rem;
+      }
+
+      .footer-links a {
+        color: #ccc;
+        text-decoration: none;
+        font-size: 0.875rem;
+        transition: color 0.2s ease;
+      }
+
+      .footer-links a:hover {
+        color: white;
+      }
+
+      .footer-copyright {
+        text-align: center;
+        color: #ccc;
+        font-size: 14px;
+        padding-top: 20px;
+        border-top: 1px solid #444;
+      }
+
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background: white;
+          flex-direction: column;
+          padding: 1rem;
+          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+          gap: 0;
+        }
+
+        .nav-links.active {
+          display: flex;
+        }
+
+        .nav-links a {
+          width: 100%;
+          padding: 0.75rem 1rem;
+          border-bottom: 1px solid #e8e8e8;
+        }
+
+        .nav-links a:last-child {
+          border-bottom: none;
+        }
+
+        .mobile-menu-btn {
+          display: block;
+        }
+
+        .nav-logo {
+          font-size: 1.1rem;
+        }
+
+        .header h1 {
+          font-size: 2.2rem;
+        }
+
+        .header p {
+          font-size: 1.1rem;
+        }
+
+        .filter-container {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .locations-grid {
+          grid-template-columns: 1fr;
+          gap: 24px;
+        }
+
+        .card-header,
+        .card-body {
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+
+        .card-footer {
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+
+        .modal-content {
+          margin: 20px;
+          max-height: calc(100vh - 40px);
+        }
+
+        .modal-header,
+        .modal-body {
+          padding-left: 24px;
+          padding-right: 24px;
+        }
+      }
+    </style>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-CP3FPM70JC"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-CP3FPM70JC");
+    </script>
+  </head>
+  <body>
+    <nav class="main-nav">
+      <div class="nav-container">
+        <a href="#" class="nav-logo">Starbucks Japan Directory</a>
+
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#home">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms</a></li>
+        </ul>
+
+        <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+      </div>
+    </nav>
+
+    <header class="header">
+      <div class="container">
+        <h1>Starbucks Japan Directory</h1>
+        <p>
+          Discover unique Starbucks locations throughout Japan, showcasing
+          exceptional architectural design and cultural attractions nearby
+        </p>
+      </div>
+    </header>
+
+    <section class="data-source-section">
+      <div class="container">
+        <div
+          class="data-info"
+          id="dataInfo"
+          style="text-align: center; color: #666"
+        >
+          Loading location data...
+        </div>
+      </div>
+    </section>
+
+    <section class="filter-section">
+      <div class="container">
+        <div class="filter-container">
+          <div class="filter-group">
+            <label for="typeFilter">Filter by Type:</label>
+            <select id="typeFilter" class="filter-select">
+              <option value="">All Types</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="cityFilter">Filter by City:</label>
+            <select id="cityFilter" class="filter-select">
+              <option value="">All Cities</option>
+            </select>
+          </div>
+          <div class="results-count" id="resultsCount">
+            <div class="loading">Loading locations</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <main class="main-content">
+      <div class="container">
+        <div class="locations-grid" id="locationsGrid">
+          <!-- Location cards will be inserted here -->
+        </div>
+
+        <div class="no-results" id="noResults" style="display: none">
+          <h3>No locations found</h3>
+          <p>Try selecting a different filter option</p>
+        </div>
+
+        <div class="error-message" id="errorMessage" style="display: none">
+          <h3>Error Loading Data</h3>
+          <p>
+            Unable to load location data. Please check your connection or try
+            uploading a CSV file.
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <div class="modal" id="locationModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button class="modal-close" id="modalClose">&times;</button>
+          <div id="modalHeader"></div>
+        </div>
+        <div class="modal-body" id="modalBody"></div>
+      </div>
+    </div>
+
+    <footer class="main-footer">
+      <div class="footer-container">
+        <div class="footer-links">
+          <a href="about.html">About Us</a>
+          <a href="contact.html">Contact</a>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Service</a>
+        </div>
+        <div class="footer-copyright">
+          <p>
+            &copy; 2025 Starbucks Japan Directory. Not affiliated with Starbucks
+            Corporation.
+          </p>
+          <p>All content for editorial and informational purposes.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const CONFIG = {
+        JSON_DATA_URL:
+          "https://raw.githubusercontent.com/jamespnz/starbucks-japan-directory/refs/heads/main/data/starbucks-locations-final.json",
+        FALLBACK_DATA: [
+          {
+            id: 1,
+            name: "Ginza Traditional",
+            type: "Cultural Heritage",
+            address: "Ginza 6-chome, Chuo-ku, Tokyo 104-0061, Japan",
+            city: "Tokyo",
+            region: "Kanto",
+            architectural_style: "Traditional Japanese",
+            points_of_interest:
+              "Traditional wooden interiors with tatami seating area",
+            nearby_attractions: "Tokyo Imperial Palace, Tsukiji Outer Market",
+            image_url: "",
+            editorial: "",
+          },
+        ],
+      };
+
+      let locations = [];
+      let filteredLocations = [];
+      let isLoading = true;
+
+      document.addEventListener("DOMContentLoaded", function () {
+        initializeApp();
+        setupNavigationEventListeners();
+      });
+
+      async function initializeApp() {
+        try {
+          await loadJSONData();
+          setupEventListeners();
+          updateUI();
+        } catch (error) {
+          console.error("Failed to initialize app:", error);
+          if (locations.length === 0) {
+            // Only show error if no data loaded
+            handleDataLoadError();
+          }
+        }
+      }
+
+      function setupNavigationEventListeners() {
+        document
+          .getElementById("mobileMenuBtn")
+          .addEventListener("click", function () {
+            const navLinks = document.getElementById("navLinks");
+            navLinks.classList.toggle("active");
+          });
+
+        document.querySelectorAll(".nav-links a").forEach((link) => {
+          link.addEventListener("click", function () {
+            const navLinks = document.getElementById("navLinks");
+            navLinks.classList.remove("active");
+          });
+        });
+      }
+
+      async function loadJSONData() {
+        try {
+          console.log("Loading from JSON...");
+          const response = await fetch(CONFIG.JSON_DATA_URL);
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+          }
+
+          const data = await response.json();
+          if (data.locations && Array.isArray(data.locations)) {
+            locations = data.locations;
+            console.log(`Loaded ${locations.length} locations from JSON`);
+          } else {
+            throw new Error("Invalid JSON structure");
+          }
+
+          isLoading = false;
+          filteredLocations = [...locations];
+        } catch (error) {
+          console.warn("JSON loading failed, using fallback data:", error);
+          locations = CONFIG.FALLBACK_DATA;
+          filteredLocations = [...locations];
+          isLoading = false;
+          console.log("Using fallback data");
+        }
+      }
+
+      function handleDataLoadError() {
+        isLoading = false;
+        document.getElementById("errorMessage").style.display = "block";
+        document.getElementById("locationsGrid").style.display = "none";
+        document.getElementById("resultsCount").innerHTML =
+          "Error loading data";
+      }
+
+      function handleCSVUpload(event) {
+        const file = event.target.files[0];
+        const statusElement = document.getElementById("uploadStatus");
+
+        if (!file) return;
+
+        statusElement.textContent = "Processing CSV...";
+        statusElement.className = "upload-status";
+
+        Papa.parse(file, {
+          header: true,
+          skipEmptyLines: true,
+          complete: function (results) {
+            if (results.errors.length > 0) {
+              console.error("CSV parsing errors:", results.errors);
+              statusElement.textContent =
+                "CSV loaded with warnings - check console";
+              statusElement.className = "upload-status";
+            }
+
+            const csvData = results.data;
+            if (csvData.length === 0) {
+              statusElement.textContent = "No locations found in CSV";
+              statusElement.className = "upload-status error";
+              return;
+            }
+
+            const newLocations = csvData.map((row, index) => {
+              if (index < 3) {
+                console.log(`Row ${index + 1} data:`);
+                console.log(`  Name: "${row.name}"`);
+                console.log(
+                  `  Architectural Style: "${row.architectural_style}"`
+                );
+                console.log(`  Image URL: "${row.image_url}"`);
+                console.log(`  Architect Plan: "${row.architect_plan}"`);
+              }
+
+              return {
+                id: parseInt(row.id) || index + 1,
+                name: cleanText(row.name || ""),
+                type: cleanText(row.type || ""),
+                editorial: cleanText(row.editorial || ""),
+                address: cleanText(row.address || ""),
+                city: cleanText(row.city || ""),
+                region: cleanText(row.region || ""),
+                architectural_style: cleanText(row.architectural_style || ""),
+                points_of_interest: cleanText(row.points_of_interest || ""),
+                walking_areas_nearby: cleanText(row.walking_areas_nearby || ""),
+                nearby_attractions: cleanText(row.nearby_attractions || ""),
+                image_url: cleanText(row.image_url || "").trim(),
+                second_image_url: cleanText(row.second_image_url || "").trim(),
+                architect_plan: cleanText(row.architect_plan || "").trim(),
+                latitude: parseFloat(row.latitude) || null,
+                longitude: parseFloat(row.longitude) || null,
+                image_attribution: cleanText(row.image_attribution || ""),
+                image_license_info: cleanText(row.image_license_info || ""),
+                second_image_attribution: cleanText(
+                  row.second_image_attribution || ""
+                ),
+                description: cleanText(row.description || ""),
+                created_at: row.created_at || "",
+                updated_at: row.updated_at || "",
+              };
+            });
+
+            const validLocations = newLocations.filter(
+              (location) => location.name && location.name.trim().length > 0
+            );
+
+            locations = validLocations;
+            filteredLocations = [...locations];
+
+            updateUI();
+
+            statusElement.textContent = `Successfully loaded ${validLocations.length} locations from CSV`;
+            statusElement.className = "upload-status success";
+            console.log(
+              `Successfully loaded ${validLocations.length} locations from CSV`
+            );
+
+            event.target.value = "";
+          },
+          error: function (error) {
+            console.error("CSV parsing error:", error);
+            statusElement.textContent = "Error parsing CSV file";
+            statusElement.className = "upload-status error";
+          },
+        });
+      }
+
+      function cleanText(text) {
+        if (!text) return "";
+
+        return text
+          .replace(/â€™/g, "'")
+          .replace(/â€œ/g, '"')
+          .replace(/â€/g, '"')
+          .replace(/â€"/g, "—")
+          .replace(/Ã¢â‚¬â„¢/g, "'")
+          .replace(/Ã¢â‚¬Å"/g, '"')
+          .replace(/Ã¢â‚¬/g, '"')
+          .replace(/\r\n/g, "\n")
+          .replace(/\r/g, "\n")
+          .trim();
+      }
+
+      // ===== ARCHITECTURAL PLAN HOVER FUNCTIONALITY =====
+      function showArchitectPlan(element) {
+        const planImage = element.getAttribute("data-plan-image");
+        const targetImgId = element.getAttribute("data-target-img");
+
+        if (planImage && targetImgId) {
+          const imgElement = document.getElementById(targetImgId);
+          if (imgElement) {
+            imgElement.classList.add("plan-transition");
+
+            setTimeout(() => {
+              imgElement.src = planImage;
+              imgElement.classList.remove("plan-transition");
+            }, 250);
+          }
+        }
+      }
+
+      function hideArchitectPlan(element) {
+        const targetImgId = element.getAttribute("data-target-img");
+
+        if (targetImgId) {
+          const imgElement = document.getElementById(targetImgId);
+          if (imgElement) {
+            const originalImage = imgElement.getAttribute("data-original");
+
+            if (
+              originalImage &&
+              imgElement.src !== imgElement.getAttribute("data-original")
+            ) {
+              imgElement.classList.add("plan-transition");
+
+              setTimeout(() => {
+                imgElement.src = originalImage;
+                imgElement.classList.remove("plan-transition");
+              }, 250);
+            }
+          }
+        }
+      }
+
+      function updateUI() {
+        populateFilters();
+        displayLocations();
+      }
+
+      function populateFilters() {
+        populateTypeFilter();
+        populateCityFilter();
+      }
+
+      function populateTypeFilter() {
+        const typeFilter = document.getElementById("typeFilter");
+        typeFilter.innerHTML = '<option value="">All Types</option>';
+
+        const uniqueTypes = [...new Set(locations.map((loc) => loc.type))]
+          .filter(Boolean)
+          .sort();
+
+        uniqueTypes.forEach((type) => {
+          const option = document.createElement("option");
+          option.value = type;
+          option.textContent = type;
+          typeFilter.appendChild(option);
+        });
+      }
+
+      function populateCityFilter() {
+        const cityFilter = document.getElementById("cityFilter");
+        cityFilter.innerHTML = '<option value="">All Cities</option>';
+
+        const uniqueCities = [...new Set(locations.map((loc) => loc.city))]
+          .filter(Boolean)
+          .sort();
+
+        uniqueCities.forEach((city) => {
+          const option = document.createElement("option");
+          option.value = city;
+          option.textContent = city;
+          cityFilter.appendChild(option);
+        });
+      }
+
+      function displayLocations() {
+        const grid = document.getElementById("locationsGrid");
+        const noResults = document.getElementById("noResults");
+        const errorMessage = document.getElementById("errorMessage");
+        const resultsCount = document.getElementById("resultsCount");
+
+        errorMessage.style.display = "none";
+
+        resultsCount.textContent = `Showing ${
+          filteredLocations.length
+        } location${filteredLocations.length !== 1 ? "s" : ""}`;
+
+        if (filteredLocations.length === 0) {
+          grid.style.display = "none";
+          noResults.style.display = "block";
+          return;
+        }
+
+        grid.style.display = "grid";
+        noResults.style.display = "none";
+
+        grid.innerHTML = filteredLocations
+          .map(
+            (location, index) => `
+                <div class="location-card" onclick="openModal(${index})">
+                    ${
+                      location.image_url
+                        ? `<div class="card-image">
+                        <img id="img-${index}" src="${
+                            location.image_url
+                          }" alt="${location.name}" data-original="${
+                            location.image_url
+                          }" ${
+                            location.architect_plan
+                              ? `data-plan="${location.architect_plan}"`
+                              : ""
+                          } onerror="console.log('Image failed to load: ${
+                            location.image_url
+                          }'); this.parentElement.style.display='none'">
+                        ${
+                          location.image_attribution // ← Correct for main image
+                            ? `<div class="image-credit">${location.image_attribution}</div>`
+                            : ""
+                        }
+                    </div>`
+                        : ""
+                    }
+                    <div class="card-header">
+                        <div class="card-type">${
+                          location.type || "Unknown Type"
+                        }</div>
+                        <div class="card-name">${
+                          location.name || "Unnamed Location"
+                        }</div>
+                        <div class="card-style" ${
+                          location.architect_plan
+                            ? `data-plan-image="${location.architect_plan}" data-target-img="img-${index}"`
+                            : ""
+                        } onmouseover="showArchitectPlan(this)" onmouseout="hideArchitectPlan(this)">${
+              location.architectural_style || "Style not specified"
+            }</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-detail">
+                            <strong>Address:</strong>
+                            <div class="address-container" style="margin-top: 6px;">
+                                <div class="card-detail-text" style="margin: 0;">${
+                                  location.address || "Not specified"
+                                }</div>
+                                ${
+                                  location.name
+                                    ? `<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                                        location.name
+                                      )}" target="_blank" class="map-btn">map</a>`
+                                    : ""
+                                }
+                            </div>
+                        </div>
+                        <div class="card-detail">
+                            <strong>Nearby Attractions:</strong>
+                            <div class="card-detail-text">${
+                              location.nearby_attractions || "Not specified"
+                            }</div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <span class="view-details-btn">View Full Details</span>
+                    </div>
+                </div>
+            `
+          )
+          .join("");
+      }
+
+      function filterLocations() {
+        const typeFilter = document.getElementById("typeFilter").value;
+        const cityFilter = document.getElementById("cityFilter").value;
+
+        filteredLocations = locations.filter((location) => {
+          const matchesType = !typeFilter || location.type === typeFilter;
+          const matchesCity = !cityFilter || location.city === cityFilter;
+          return matchesType && matchesCity;
+        });
+
+        displayLocations();
+      }
+
+      function openModal(index) {
+        const location = filteredLocations[index];
+        const modal = document.getElementById("locationModal");
+        const modalHeader = document.getElementById("modalHeader");
+        const modalBody = document.getElementById("modalBody");
+
+        modalHeader.innerHTML = `
+                <div class="card-type">${location.type || "Unknown Type"}</div>
+                <div class="card-name">${
+                  location.name || "Unnamed Location"
+                }</div>
+                <div class="card-style">${
+                  location.architectural_style || "Style not specified"
+                }</div>
+            `;
+
+        modalBody.innerHTML = `
+                ${
+                  location.editorial
+                    ? `
+                    <div class="modal-detail">
+                        <h4>Editorial</h4>
+                        <p>${location.editorial}</p>
+                    </div>
+                `
+                    : ""
+                }
+                <div class="modal-detail">
+                    <h4>Address</h4>
+                    <div class="address-container">
+                        <p style="margin: 0;">${
+                          location.address || "Address not available"
+                        }</p>
+                        ${
+                          location.name
+                            ? `<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                                location.name
+                              )}" target="_blank" class="map-btn">map</a>`
+                            : ""
+                        }
+                    </div>
+                </div>
+                ${
+                  location.points_of_interest
+                    ? `
+                    <div class="modal-detail">
+                        <h4>Points of Interest</h4>
+                        <p>${location.points_of_interest}</p>
+                    </div>
+                `
+                    : ""
+                }
+                <div class="modal-detail">
+    <h4>Nearby Attractions</h4>
+    <div class="nearby-attractions-content">
+        ${
+          location.nearby_attractions
+            ? `
+            <ul class="attractions-list">
+                ${location.nearby_attractions
+                  .split(",")
+                  .map((attraction) => {
+                    const trimmedAttraction = attraction.trim();
+                    const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                      trimmedAttraction
+                    )}`;
+                    return `<li><a href="${mapsUrl}" target="_blank" class="attraction-link">${trimmedAttraction}<span class="map-icon">🗺️</span></a></li>`;
+                  })
+                  .join("")}
+            </ul>
+        `
+            : "<p>Not specified</p>"
+        }
+        ${
+          location.second_image_url
+            ? `
+            <div class="second-image-container" style="margin-top: 16px;">
+                <img src="${
+                  location.second_image_url
+                }" alt="Nearby attractions" 
+                    style="width: 100%; max-width: 400px; height: 200px; object-fit: cover; border-radius: 4px; border: 1px solid #e8e8e8;"
+                    onerror="this.parentElement.style.display='none'">
+                ${
+                  location.second_image_attribution
+                    ? `<div class="image-credit">${location.second_image_attribution}</div>`
+                    : ""
+                }
+            </div>
+        `
+            : ""
+        }
+    </div>
+</div>
+                ${
+                  location.walking_areas_nearby
+                    ? `
+    <div class="modal-detail">
+        <h4>Walking Areas</h4>
+        <ul class="attractions-list">
+            ${location.walking_areas_nearby
+              .split(",")
+              .map((area) => {
+                const trimmedArea = area.trim();
+                const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                  trimmedArea
+                )}`;
+                return `<li><a href="${mapsUrl}" target="_blank" class="attraction-link">${trimmedArea}<span class="map-icon">🗺️</span></a></li>`;
+              })
+              .join("")}
+        </ul>
+    </div>
+`
+                    : ""
+                }
+            `;
+
+        modal.classList.add("active");
+      }
+
+      function closeModal() {
+        const modal = document.getElementById("locationModal");
+        modal.classList.remove("active");
+      }
+
+      function setupEventListeners() {
+        document
+          .getElementById("typeFilter")
+          .addEventListener("change", filterLocations);
+        document
+          .getElementById("cityFilter")
+          .addEventListener("change", filterLocations);
+
+        document
+          .getElementById("modalClose")
+          .addEventListener("click", closeModal);
+
+        document
+          .getElementById("locationModal")
+          .addEventListener("click", function (e) {
+            if (e.target === this) {
+              closeModal();
+            }
+          });
+
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape") {
+            closeModal();
+          }
+        });
+      }
+    </script>
+  </body>
+</html>
