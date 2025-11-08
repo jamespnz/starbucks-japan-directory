@@ -22,7 +22,7 @@
       "architect_plan": "images/hokkaido/starbucks-hakodate-drawing.jpg",
       "second_image_url": "images/hokkaido/northern-peoples.jpg",
       "description": "Located in the historic Kanemori Red Brick Warehouse district this Starbucks combines Meiji-era architecture with modern design offering views of Hakodate Bay",
-      "image_attribution": "By MIKI Yoshihito from Sapporo City,Hokkaido., JAPAN - STARBUCKS COFFEE - HAKODATE Bay Area., CC BY 2.0",
+      "image_attribution": "By MIKI Yoshihito, CC BY 2.0",
       "second_image_attribution": "By 663highland - Own work, CC BY 2.5"
     },
     {
@@ -117,7 +117,7 @@
       "architect_plan": "images/kanto/starbucks-shibuya-crossing-drawing.jpg",
       "second_image_url": "images/kanto/scramble-crossing.jpg",
       "description": "Overlooking the world-famous intersection, this sleek modern store is optimized for fast flow and people-watching, steps from the Shibuya Sky observation deck",
-      "image_attribution": "By Yoshikazu TAKADA from Tokyo, Japan - STARBUCKS COFFEE, CC BY 2.0",
+      "image_attribution": "By Yoshikazu TAKADA, CC BY 2.0",
       "second_image_attribution": "By Dick Thomas Johnson from Tokyo, Japan - Shibuya Scramble Square: Shibuya Crossing, CC BY 2.0"
     },
     {
@@ -175,7 +175,7 @@
       "second_image_url": "images/kanto/kawagoe-street.jpg",
       "description": "Located in the historic Little Edo district this Starbucks features traditional Japanese design using local Saitama cedar wood and Kawagoe tozan fabric creating an authentic Edo period atmosphere",
       "image_attribution": "Photo by Umioso - Own work CC BY 2.5",
-      "second_image_attribution": "By Wei-Te Wong from Taipei City, Taiwan, Republic of China - 川越市景, CC BY-SA 2.0"
+      "second_image_attribution": "By Wei-Te Wong 川越市景, CC BY-SA 2.0"
     },
     {
       "id": 10,
